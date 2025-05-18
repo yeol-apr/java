@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/registration.js"></script>
+</head>
+<body>
+    <div class="outdiv">
+        <div class="rightdiv">
+            <div class="divimg">
+                <img src="img/100sh.jpg" alt="注册图片">
+            </div>
+        </div>
+        <div class="leftdiv">
+            <form class="fromdiv" action="" method="post" onsubmit="return regi()">
+                <div class="forminsertdiv">
+                    <p class="denglu">注册</p>
+                    <input class="input1" type="text" name="" id="name" placeholder="用户名" onblur="checkUsername()"><span id="name_sp"></span><br>
+                    <input class="input1" type="password" name="password" id="password" placeholder="密码" onblur="checkPassword1()"><span id="password_sp"></span><br>
+                    <input class="input1" type="password" name="password_1" id="password_1" placeholder="再次确认密码" onblur="checkPassword2()"><span id="password_sp2"></span><br>
+                    <input class="inputsubmit" type="submit" value="注册">
+                </div>
+            </form>
+        </div>
+        
+
+    </div>
+</body>
+</html>

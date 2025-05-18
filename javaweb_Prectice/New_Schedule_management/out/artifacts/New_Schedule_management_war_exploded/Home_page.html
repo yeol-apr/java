@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+            border: 0;
+            /* overflow: hidden; */
+            height: 100%;/*  关键 */
+
+        }
+
+
+        ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 20%;
+            background-color: rgb(212, 220, 220);
+            position: fixed;
+            height: 100%;
+            
+        }
+        li a {
+            display: block;
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+        li a.active {
+        background-color: #4CAF50;
+        color: rgb(243, 237, 237);
+        }
+        li a:hover:not(.active) {
+        background-color: #555;
+        color: rgb(24, 43, 214);
+        }
+        /* iframe{
+            margin-left: 20%;
+            border: none;
+            width: 100%;
+            height: 100%;
+            
+        } */
+
+        /* 确保父容器填满整个可视区域 */
+#schedule-container {
+    position: absolute;
+    margin-left: 20%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden; /* 隐藏超出的内容，如果有滚动条需求可以调整此项*/ 
+} 
+
+
+/* 让iframe填满父容器 */
+#schedule-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none; /* 移除iframe边框 */
+}
+
+    </style>
+
+<script>
+// 页面加载时执行的函数
+function onPageLoad() {
+    // 从localStorage中尝试读取之前保存的iframe URL
+    var savedUrl = localStorage.getItem('currentIframeUrl');
+    if (savedUrl) {
+        // 如果有保存的URL，则设置给iframe
+        document.getElementById("contentFrame").src = savedUrl;
+        // 根据保存的URL匹配菜单项并激活
+        var menuItems = document.querySelectorAll("#menu a");
+                for (var i = 0; i < menuItems.length; i++) {
+                    if (menuItems[i].href === savedUrl) {
+                        menuItems[i].classList.add("active"); // 激活匹配的菜单项
+                    } else {
+                        menuItems[i].classList.remove("active"); // 移除其他菜单项的active类
+                    }
+                }
+    }
+}
+
+// 导航链接点击事件处理函数
+function onMenuItemClick(event) {
+    // 阻止默认的跳转行为
+    event.preventDefault();
+
+    // 更新iframe的src属性
+    var iframe = document.getElementById("contentFrame");
+    iframe.src = event.target.href;
+
+    // 同时保存当前的URL到localStorage
+    localStorage.setItem('currentIframeUrl', iframe.src);
+
+    // 更新菜单项的active状态
+    var currentActive = document.querySelector("#menu .active");
+            if (currentActive) {
+                currentActive.classList.remove("active");
+            }
+            event.target.classList.add("active");
+}
+</script>
+
+</head>
+<body onload="onPageLoad()">
+    <ul id="menu">
+        <li><a class="active" href="Learnmore.html" target="contentFrame" onclick="onMenuItemClick(event)">首页</a></li>
+        <li><a class="none"  href="日程管理.html" target="contentFrame" onclick="onMenuItemClick(event)">日程管理</a></li>
+        <li><a class = "none" href="3D立体.html" target="contentFrame" onclick="onMenuItemClick(event)">WhitYou</a></li>
+        <li><a class="none" href="login.html" target="contentFrame" onclick="onMenuItemClick(event)">About</a></li>
+        <li> <a class="none" href="register.html" target="contentFrame" onclick="onMenuItemClick(event)">个人管理</a></li>
+      </ul>
+      <div id="schedule-container">
+        <iframe src="Learnmore.html" name="contentFrame" id="contentFrame"></iframe>
+      </div>
+      <script>
+// 获取所有的菜单链接
+var menuItems = document.getElementById("menu").getElementsByTagName("a");
+// 为每个菜单项添加点击事件监听器
+for (var i = 0; i < menuItems.length; i++) {
+    menuItems[i].addEventListener("click", function(event) {
+        // 阻止默认的跳转行为
+        //event.preventDefault();
+
+        // 移除所有菜单项的'active' class
+        for (var j = 0; j < menuItems.length; j++) {
+            menuItems[j].classList.remove("active");
+        }
+
+        // 为当前点击的菜单项添加'active' class
+        this.classList.add("active");
+
+        // 根据需要可以在这里添加跳转逻辑，例如：
+        // document.getElementById("contentFrame").src = this.href;
+        // 改变iframe的src属性以加载新页面
+        document.getElementById("contentFrame").src = this.href;
+    
+    
+    });
+}
+      </script>
+</body>
+</html>
+
+
+
+

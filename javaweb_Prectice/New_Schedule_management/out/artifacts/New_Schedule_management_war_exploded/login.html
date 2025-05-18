@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>日程管理登录</title>
+<link type="text/css" rel="stylesheet" href="css/login.css" />
+<script src="js/login.js"></script>
+</head>
+<body>
+<div class="Box">
+  <div class="left">
+    <div class="centerBox">
+      <img src="img/OIP-C.jpg"
+           alt="">
+      <h4>Welcome</h4>
+      <p>This is a description</p>
+    </div>
+  </div>
+  <div class="right">
+    <form action="/New_Schedule_management_war/user/login"  method="post">
+      <h3>欢迎登录</h3>
+      <input type="text" id="username" name="username" placeholder="请输入账号" required>
+    <!--  
+    placeholder="请输入账号": 这个属性提供了一个提示信息，当输入框为空时显示在输入框内，用来提示用户应该输入的内容
+    required: 这是一个表单验证属性，表示该输入字段在表单提交前必须填写。  
+    -->
+      <input type="password" name="password" placeholder="请输入密码" required>
+      <input type="submit" class="loginBtn" value="登录"></button>
+      <p class="no"><a href="register.html" target="_self">没有账号？立即注册</a></p>
+    </form>
+   
+  </div>
+</div>
+</body>
+</html>

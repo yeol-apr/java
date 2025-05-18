@@ -1,0 +1,68 @@
+body{
+    margin: 0;
+    background-image: url("/样式1/img/R-C.jpg");
+    height: 100vh;
+}
+.outdiv{
+    margin: auto;
+    margin-top: 20px;
+    width: 80%;
+    height: 80%;
+    /* border: 3px solid #73AD21; */
+}
+.rightdiv{
+    width: 50%;
+    height: 100%;
+    /* border: 3px solid #de1237; */
+    float: right;
+}
+.leftdiv{
+    width: 50%;
+    height: 100%;
+    /* border: 3px solid #0fe071; */
+    
+}
+.fromdiv{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #e7eaeb;
+    background: #e6ebeb;
+}
+.forminsertdiv{
+    margin-top: 100px;
+    margin-left: auto;
+    width: 60%;
+    height: 80%;
+}
+.input1{
+    width: auto;
+    right: auto;
+    border-radius: 5px;
+    border-color: #f00e3f;
+    padding: 10px;
+    margin: 5px;
+}
+.inputsubmit{
+    width: 100px;
+    border-radius: 5px;
+    background-color: #2463b5;
+    padding: 10px;
+    margin: 10px;
+    margin-left: 40px;
+}
+.divimg{
+width: 100%;
+height: 100%;
+}
+img{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat center;
+}
+.denglu{
+    position: static;
+    border-style: none;
+    border-color:  #2e11e8;
+    text-align: center;
+}

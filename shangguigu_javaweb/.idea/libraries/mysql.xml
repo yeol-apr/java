@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="mysql类库">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/资料/lib/mysql类库/mysql-connector-java-8.0.25.jar!/" />
+      <root url="jar://$PROJECT_DIR$/资料/lib/mysql类库/druid-1.1.21.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日程管理</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        #myDialog{
+            border-color: aqua;
+            border-radius: 5px;
+            background: #808080;
+        }
+        #myDialog::backdrop{
+            border-color: aqua;
+            border-radius: 5px;
+            background: #8008;
+        }
+
+        dialog {
+        position: relative; /* 使得对话框内的元素可以相对定位 */
+            
+        }
+
+        .close-button {
+        position: absolute; /* 绝对定位使按钮脱离文档流 */
+        top: 8px; /* 调整垂直位置 */
+        right: 12px; /* 调整水平位置 */
+        background: none; /* 移除默认背景 */
+        border: none; /* 移除边框 */
+        font-size: 24px; /* 设置字体大小 */
+        cursor: pointer; /* 更改鼠标指针为手型 */
+        color: #aaa; /* 设置默认颜色 */
+        }
+
+        .close-button:hover {
+        color: #000; /* 鼠标悬停时改变颜色 */
+        }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+            border-radius: 5px;
+        }
+
+    </style>
+    <script>
+        /**
+         * 获取日程列表
+         */
+
+        function deleteSchedule(uid) {
+            var currentPage = localStorage.getItem('currentPage') || 1;
+            //是否确认删除
+            if (confirm("是否确认删除？")) {
+                // 确认删除
+
+
+            var uid = uid;
+            console.log(uid)
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/New_Schedule_management_war/SysSchedule/deleteSysSchedule?uid=' + uid, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // 处理响应结果
+                        var response = JSON.parse(xhr.responseText);
+                        var scheduleList = response.data;
+                        var tbody = document.getElementById('schedule-list');
+                        tbody.innerHTML = ''; // 清空表格内容
+                        alert("删除成功")
+                        //是否确认删除
+
+                        getScheduleList( currentPage);
+                    }
+                }
+            }
+            xhr.send();
+
+
+            }
+        }
+
+
+        function openEditDialog(sid,uid,title, completed) {
+            var dialog = document.getElementById('myDialog');
+            // 填充对话框内的表单或元素
+
+            var contentInput = dialog.querySelector('input[id="myDialog_title"]');
+            var statusSelect = dialog.querySelector('select[name="status"]');
+            var sidInput = dialog.querySelector('input[id="sid"]');
+            var uidInput = dialog.querySelector('input[id="myDialog_uid"]');
+            sidInput.value = sid;
+            uidInput.value = uid;
+            contentInput.value = title; // 假设我们用标题作为内容展示
+            statusSelect.value = completed ; // 根据实际情况调整
+
+            // 打开对话框
+            dialog.showModal();
+
+        }
+
+
+        function getScheduleList(page) {
+            localStorage.setItem("currentPage",page)
+            console.log("page="+page)
+            //设置回调函数处理响应结果
+            var xhr = new XMLHttpRequest();
+            //设置请求方式和资源路径
+            xhr.open('GET', '/New_Schedule_management_war/SysSchedule/selectSysSchedule?page='+page, true); // 修改为GET方法，并移到外面
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // 处理响应结果
+                        var response = JSON.parse(xhr.responseText);
+                        var scheduleList = response.data;
+                        var tbody = document.getElementById('schedule-list');
+                        tbody.innerHTML = ''; // 清空表格内容
+
+                        for (var i = 0; i < scheduleList.length; i++) {
+                            var schedule = scheduleList[i];
+                            var row = document.createElement('tr');
+                            row.innerHTML =
+                                '<td>' + schedule.sid + '</td>' +
+                                '<td>' + schedule.uid + '</td>' +
+                                '<td>' + schedule.title + '</td>' +
+                                '<td>' + schedule.completed + '</td>' +
+                                '<td class="action-buttons">' +
+                                `<button onclick="openEditDialog('${schedule.sid}','${schedule.uid}','${schedule.title}', ${schedule.completed})">操作</button>` +
+                                '<td><button  onclick="deleteSchedule(' + schedule.sid + ')">删除</button></td>';
+                            tbody.appendChild(row); // 使用appendChild而不是innerHTML赋值
+                        }
+                    } else {
+                        console.error("Failed to fetch schedule list: " + xhr.statusText);
+                    }
+                }
+            };
+
+            xhr.onerror = function() {
+                console.error("Request failed");
+            };
+
+            xhr.send(); // 请求发送移到这里
+        }
+
+
+
+        function getCount() {
+    /**
+     * 动态生成分页，将页面调用结果级别生成分页
+     */
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response.data);
+                // 正确获取总记录数
+                var totalCount = parseInt(response.data[0]['count(*)'], 10); // 提取总记录数
+                console.log("totalCount: " + totalCount);
+
+                var itemsPerPage = 10; // 每页显示的条数
+                var totalPages = Math.ceil(totalCount / itemsPerPage); // 计算总页数
+
+                // 动态生成分页HTML
+                var paginationContainer = document.getElementById('pagination');
+                paginationContainer.innerHTML = ''; // 先清空之前的内容
+
+                for (var i = 1; i <= totalPages; i++) {
+                    var pageLink = document.createElement('a');
+                    pageLink.href = "#"; // 或者可以指向实际的页面链接，如 "?page=" + i
+                    pageLink.textContent = i;
+                    pageLink.onclick = (function(pageNumber) {
+                        return function() {
+                            // 确保goToPage函数已定义
+                            getScheduleList(pageNumber);
+                        };
+                    })(i);
+                    paginationContainer.appendChild(pageLink);
+                    if (i !== totalPages) {
+                        paginationContainer.appendChild(document.createTextNode(' ')); // 分隔符
+                    }
+                }
+            }
+        }
+    };
+    xhr.open("GET", "/New_Schedule_management_war/SysSchedule/selectSysSchedule_DB", true);
+    xhr.send();
+}
+
+
+
+
+
+
+        // 页面加载完成后调用函数
+        window.onload = function() {
+
+            var currentPage = localStorage.getItem('currentPage') || 1;
+            console.log("currentPage="+currentPage)
+            getCount()
+            getScheduleList(currentPage)
+        };
+    </script>
+
+</head>
+<body>
+
+<h1>日程管理器</h1>
+
+<dialog id="schedule-dialog">
+    <div>
+      <form id="schedule-form" >
+        <label for="schedule-content">编号:</label><br>
+        <input type="text" id="uid"  name="uid" required><br>
+        <label for="schedule-content">内容:</label><br>
+        <input type="text" id="title" name="title" required><br>
+        <label for="schedule-progress">进度:</label><br>
+        <input type="text" id="completed" name ="completed" required><br>
+        <button type="button" onclick="putNewDate()">确认</button>
+      </form>
+      <!-- 右上角关闭按钮 -->
+      <button class="close-button" onclick="this.closest('dialog').close()">X</button>
+    </div>
+  </dialog>
+
+  <script>
+
+    // ajax获取数据
+    function putNewDate() {
+        var currentPage = localStorage.getItem('currentPage') || 1;
+        event.preventDefault();
+        //设置回调函数处理响应结果
+        var xhr = new XMLHttpRequest();
+
+        var uid = document.getElementById('uid').value;
+        var title = document.getElementById('title').value;
+        var completed = document.getElementById('completed').value;
+        //设置请求方式和资源路径
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // 处理响应结果
+                    var response = JSON.parse(xhr.responseText);
+                    getScheduleList(currentPage);
+                    document.getElementById('schedule-dialog').close();
+
+                } else {
+                    console.error('请求失败，状态码：' + xhr.status);
+                }
+            }
+        };
+        xhr.open('GET', '/New_Schedule_management_war/SysSchedule/addSysSchedule?uid=' + uid+ '&title=' + title + '&completed=' +completed, true);
+
+        // 发送请求
+        xhr.send();
+        
+    }
+
+  </script>
+  
+  <button onclick="document.getElementById('schedule-dialog').showModal() ;">添加日程</button>
+<!-- 日程列表 -->
+<table>
+    <thead>
+        <tr>
+            <th>sid</th>
+            <th>编号</th>
+            <th>内容</th>
+            <th>进度</th>
+            <th>修改</th>
+            <th>删除</th>
+        </tr>
+    </thead>
+    <tbody id="schedule-list">
+        <tr>
+            <td>1</td>
+            <td>会议讨论</td>
+            <td>进行中</td>
+            <td class="action-buttons">
+                <button onclick="myDialog.showModal()">操作</button>
+            </td>
+            <td ><button>删除</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+
+
+</script>
+
+
+<!-- DIV弹窗    -->
+ <dialog id="myDialog">
+
+    <div>
+        <input type="text" id="sid" name="sid" value=""><br>
+        <input type="text" id="myDialog_uid" name="uid" value=""><br>
+        <input type="text" id="myDialog_title" placeholder="输入日程标题"><br>
+
+        <p>状态</p>
+        <select name="status" id="status">
+            <option value="0" >未完成</option>
+            <option value="1" >已完成</option>
+        </select><br><br>
+        <button onclick="saveEditedSchedule()">修改</button><br>
+
+        <button onclick="myDialog.close()">关闭</button>
+        </div>
+ </dialog>
+
+<script>
+    function saveEditedSchedule() {
+        var currentPage = localStorage.getItem('currentPage') || 1;
+        //修改数据
+        var sid = document.getElementById('sid').value;
+        var uid = document.getElementById('myDialog_uid').value;
+        var title = document.getElementById('myDialog_title').value;
+        var status = document.getElementById('status').value;
+        console.log(sid, uid, title, status)
+        console.log("执行if")
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response.msg)
+                    getScheduleList(currentPage);
+                }
+            }
+        }
+        xhr.open('GET', '/New_Schedule_management_war/SysSchedule/updateSysSchedule?sid=' + sid + '&uid=' + uid + '&title=' + title + '&completed=' + status, true);
+        xhr.send();
+
+
+    }
+</script>
+
+
+<div class="pagination" id="pagination">
+
+</div>
+
+
+
+
+</body>
+</html>

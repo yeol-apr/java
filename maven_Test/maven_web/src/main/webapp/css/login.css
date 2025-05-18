@@ -1,0 +1,128 @@
+*{
+	/* //选择所有元素 */
+	 padding: 0;/*//所有元素的内部边距（padding）设置为0。内部边距是元素边框和元素内容之间的空间。 */
+	 margin: 0;/*//这行代码将所有元素的外部边距（margin）设置为0 */
+	box-sizing: border-box;//设置所有元素的盒模型为“border-box”
+	font-family: 'Poppins',sans-serif;// 这行代码设置所有元素的字体为'Poppins'，如果'Poppins'字体不可用，则回退到无衬线字体（sans-serif）
+}
+
+section {
+	/* 选择了页面上所有的section元素，并为它们应用以下的样式。 */
+	/*这将section元素的位置设置为相对定位。
+	 这意味着你可以使用top, right, bottom,
+	 和 left 属性来移动这个元素。 */
+	
+    position: relative;
+	/* 这将section元素的最小高度设置为视口高度的100%。
+	vh是一个相对单位，代表视口高度的1%。 */
+    min-height: 100vh;
+	/* 这将section元素的背景颜色设置为浅蓝色。 */
+    background: lightblue;
+	/* 这将section元素的显示类型设置为弹性盒子（flexbox）。
+	Flexbox是一个用于在容器中排列项目的布局模型。 */
+    display: flex;
+	/* 在弹性容器中，这会使项目在主轴（默认为水平轴）上居中对齐。 */
+    justify-content: center;
+	/* 在弹性容器中，这会使项目在交叉轴（与主轴垂直的轴）上居中对齐。 */
+    align-items: center;
+	/* 这将在section元素的内部边界周围添加20像素的填充。 */
+    padding: 20px;
+}
+
+section .container {
+	/* 这是选择器，它选择了页面上所有在section元素内的、
+	类名为container的元素，并为它们应用以下的样式。 */
+    position: relative;
+	/* / 这将元素的位置设置为相对定位。 */
+
+    width: 800px;
+	/* // 这将元素的宽度设置为800像素。 */
+    height: 500px;
+	/* //这将元素的高度设置为500像素。 */
+    background: #fff;
+	/* //这将元素的背景颜色设置为白色。 */
+	/* 这会给元素添加一个盒子阴影。
+	具体效果是阴影偏移量为0（不偏移），
+	垂直偏移量为15像素，模糊半径为50像素，
+	颜色为半透明的黑色（rgba(0, 0, 0, 0.1)）。 */
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+	/* 这意味着如果元素的内容超出了其指定的宽度和高度，
+	那么超出的部分将不会显示。 */
+    overflow: hidden;
+}
+section .container .user{
+	/*绝对定位*/
+    position: absolute;
+	/* 这将元素的顶部边缘与其最近的
+	定位祖先元素的顶部边缘对齐，
+	或者如果没有定位的祖先元素，
+	则与初始包含块的顶部边缘对齐。 */
+    top: 0;
+	 /* 这将元素的左侧边缘与其最近
+	 的定位祖先元素的左侧边缘对齐，
+	 或者如果没有定位的祖先元素，
+	 则与初始包含块的左侧边缘对齐。 */
+    left: 0;
+    width: 100%;
+    height: 100%;
+	/* 这将元素的显示类型设置为弹性盒子（flexbox）。 */
+    display: flex;
+}
+
+/* 更改图片  （左侧）*/
+section .container .imgBx{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    /* background: #fff; */
+    transition: .5s;
+}
+section .container .user .imgBx img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+section .container .user .formBx {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    transition: .5s;
+}
+
+/* 表单文字属性 */
+
+section .container .user .formBx form input{
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    background: #f5f5f5;
+    color: #333;
+    border: none;
+    outline:none;
+    box-shadow:none;
+    margin: 8px 0;
+    font-size: 14px;
+    letter-spacing:1px;
+    font-weight: 300;
+}
+
+section .container .user .formBx form input[type="submit"]{
+    max-width: 100px;
+    background: #677eff;
+    color:#fff;
+    cursor:pointer;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: .5s;
+} 
+
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/一至七期代码.iml" filepath="$PROJECT_DIR$/.idea/一至七期代码.iml" />
+      <module fileurl="file://$PROJECT_DIR$/三期项目代码/三期项目代码.iml" filepath="$PROJECT_DIR$/三期项目代码/三期项目代码.iml" />
+      <module fileurl="file://$PROJECT_DIR$/二期项目代码/二期项目代码.iml" filepath="$PROJECT_DIR$/二期项目代码/二期项目代码.iml" />
+      <module fileurl="file://$PROJECT_DIR$/五六七期代码/五六七期代码.iml" filepath="$PROJECT_DIR$/五六七期代码/五六七期代码.iml" />
+      <module fileurl="file://$PROJECT_DIR$/四期项目代码/四期项目代码.iml" filepath="$PROJECT_DIR$/四期项目代码/四期项目代码.iml" />
+    </modules>
+  </component>
+</project>

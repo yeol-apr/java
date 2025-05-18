@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="maven_java" />
+        <module name="maven_Test (1)" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="maven_Test" target="17" />
+      <module name="maven_Test (1) (org.atguigu.maven)" target="17" />
+      <module name="maven_Test (2) (org.example)" target="17" />
+      <module name="maven_web" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="jjwt">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/资料/lib/jjwt/jaxb-api-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/资料/lib/jjwt/jjwt-0.9.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

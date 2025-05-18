@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Schedule_Management:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Schedule_Management_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Schedule_Management" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="application" name="mysql-connector-java-8.0.25" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="Schedule_Management/web/Web" />
+    </root>
+  </artifact>
+</component>

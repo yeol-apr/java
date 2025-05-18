@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录样式1</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/login.js"></script>
+</head>
+<body>
+    <div class="outdiv">
+        <div class="reghitdiv">
+            <form class="frominpu" action="/LoginServlet/login" method="post" onsubmit="return fromData()">
+                <div class="logindiv">
+                <p class="denglu">登录</p>
+                <input class="input1" type="text" name="name" id="name"  placeholder="用户名" onblur="checkUsername()"><span id="userMase"></span><br>
+                <input class="input1" type="password" name="password" id="password" placeholder="密码" onblur="checkUserPassword()"><span id="passwordName"></span><br>
+                <input  class="button1" type="submit" value="登录"><br>
+                <button class="button1"><a href="registration.html" target="_blank">注册</a> </button>
+                </div>
+            </form>
+        </div> 
+        <div class="leftdiv"><img src="img/100sh.jpg" alt="左边框"></div>
+    </div>`
+</body>
+</html>

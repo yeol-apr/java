@@ -1,0 +1,14 @@
+{
+  "global": {
+    "server": ":10086",
+    "limit": 3
+  },
+  "users": [
+    {
+      "base_url": "https://zxshixun.kmcc.edu.cn/",
+      "school_id": 0,
+      "username": "21160006",
+      "password": "KleinBlue19"
+    }
+  ]
+}
